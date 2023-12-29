@@ -177,7 +177,7 @@ while True:
         print("6. Parcel Pricing Menu")
         print("7. Back to First Menu")
 
-        choice = input("Enter your choice (1-6): ")
+        choice = input("Enter your choice (1-7): ")
 
         if choice == "1":
             new_username = input("Enter username to add: ")
@@ -250,7 +250,7 @@ while True:
 
         elif choice == "7":
             print("Exiting the Parcel Delivery Service - Administrator Menu. Goodbye!")
-            import FirstMenu
+            break
 
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
