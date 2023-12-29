@@ -1,0 +1,3 @@
+0: {'date': '2023-12-25', 'destination': 'Zone A'}
+1: {'date': '2023-12-26', 'destination': 'Zone B'}
+2: {'date': '2023-12-27', 'destination': 'Zone C'}
