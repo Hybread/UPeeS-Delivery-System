@@ -290,9 +290,9 @@ def add_and_calculate_parcel_prices():
 
                             # Insert the total price with tax directly after the consignment details
                             if total_price_index is None:
-                                lines.insert(parcels_line_index + 1, f"Total price for Parcel {parcel_to_calculate} in Consignment {consignment_num} (incl. tax): RM {total_price_with_tax:.2f}\n")
+                                lines.insert(parcels_line_index + 1, f"Total price for Parcel {parcel_to_calculate}, Zone {zone} in Consignment {consignment_num} (incl. tax): RM {total_price_with_tax:.2f}\n")
                             else:
-                                lines.insert(total_price_index + 1, f"Total price for Parcel {parcel_to_calculate} in Consignment {consignment_num} (incl. tax): RM {total_price_with_tax:.2f}\n")
+                                lines.insert(total_price_index + 1, f"Total price for Parcel {parcel_to_calculate}, Zone {zone} in Consignment {consignment_num} (incl. tax): RM {total_price_with_tax:.2f}\n")
                                 
                             with open('customerDetails.txt', 'w') as file:
                                 file.writelines(lines)
