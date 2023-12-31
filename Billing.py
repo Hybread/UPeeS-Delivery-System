@@ -190,32 +190,36 @@ def bill_menu(customer_name):
         print()
         break
 
+import json
+
 def calculate_price(weight, zone):
-    prices = {
-        'A': {'below_1kg': 8.00, '1kg_to_3kg': 16.00},
-        'B': {'below_1kg': 9.00, '1kg_to_3kg': 18.00},
-        'C': {'below_1kg': 10.00, '1kg_to_3kg': 20.00},
-        'D': {'below_1kg': 11.00, '1kg_to_3kg': 22.00},
-        'E': {'below_1kg': 12.00, '1kg_to_3kg': 24.00}
-    }
-
+    # Load the price data from the JSON file
+    with open('parcel_price.json', 'r') as file:
+        parcel_price = json.load(file)
+    
     zone = zone.upper()  # Convert input to uppercase for case-insensitive comparison
-
+    
     if weight < 1:
-        price = prices.get(zone, {}).get('below_1kg')
+        price = parcel_price['UNDER1KG'].get(zone)
     elif 1 <= weight <= 3:
-        price = prices.get(zone, {}).get('1kg_to_3kg')
+        price = parcel_price['1KGTO3KG'].get(zone)
     else:
-        price = 0  # Add handling for weights above 3kg if needed
-
-    return price
+        price = parcel_price['OVER3KG'].get(zone)
+    
+    if price is None:
+        return None  # Handle the case where the price is not available
+    else:
+        return price
 
 def calculate_total_price(parcel_weights, parcel_zones):
     total_price = 0
     for weight, zone in zip(parcel_weights, parcel_zones):
         price = calculate_price(weight, zone)
-        total_price += price
-
+        if price is not None:
+            total_price += price
+        else:
+            # Handle the case where the price is not available
+            print(f"Price not available for weight {weight} and zone {zone}. Skipping calculation for this parcel.")
     return total_price
 
 def calculate_total_price_with_tax(total_price):
@@ -584,47 +588,49 @@ def view_bills_by_date_range(start_date, end_date):
         print("Please check your code logic and inputs.")
         print()
 
-while True:
-    bill_options()
-    selected_option = receive_bill_options()
-    
-    if selected_option == 1:
-        print("****Please check whether the customer exists in the database before creating a bill.****")
+def billingMenu():
+    while True:
+        bill_options()
+        selected_option = receive_bill_options()
+        
+        if selected_option == 1:
+            print("****Please check whether the customer exists in the database before creating a bill.****")
 
-        while True:
-            user_choice = first_menu()
+            while True:
+                user_choice = first_menu()
 
-            if user_choice == '1':
-                customer_name = input("Enter a customer's name to check if it exists in the database: ")
-                if check_customer(customer_name):
-                    bill_menu(customer_name)
+                if user_choice == '1':
+                    customer_name = input("Enter a customer's name to check if it exists in the database: ")
+                    if check_customer(customer_name):
+                        bill_menu(customer_name)
+                    else:
+                        print(f"The customer '{customer_name}' you have entered, does not exist in the database.")
+
+                elif user_choice == '2':
+                    print("Returning to previous menu.")
+                    print()
+                    break
                 else:
-                    print(f"The customer '{customer_name}' you have entered, does not exist in the database.")
+                    print("Invalid input. Please enter a valid input!")
+                    print()
 
-            elif user_choice == '2':
-                print("Returning to previous menu.")
-                print()
-                break
-            else:
-                print("Invalid input. Please enter a valid input!")
-                print()
-
-    elif selected_option == 2:
-        add_and_calculate_parcel_prices()
-    elif selected_option == 3:
-        modify_consignment()
-    elif selected_option == 4:
-        delete_parcel()
-    elif selected_option == 5:
-        view_bill()
-    elif selected_option == 6:
-        view_bill_with_total()
-    elif selected_option == 7:
-        print("****Viewing bills by date range.****")
-        start_date = receive_date()
-        end_date = receive_date()
-        print()
-        view_bills_by_date_range(start_date, end_date)
-    elif selected_option == 8:
-        import UserLogin
-        UserLogin.continue_login_process()
+        elif selected_option == 2:
+            add_and_calculate_parcel_prices()
+        elif selected_option == 3:
+            modify_consignment()
+        elif selected_option == 4:
+            delete_parcel()
+        elif selected_option == 5:
+            view_bill()
+        elif selected_option == 6:
+            view_bill_with_total()
+        elif selected_option == 7:
+            print("****Viewing bills by date range.****")
+            start_date = receive_date()
+            end_date = receive_date()
+            print()
+            view_bills_by_date_range(start_date, end_date)
+        elif selected_option == 8:
+            from Operator import operatorMenu
+            operatorMenu()
+            break
