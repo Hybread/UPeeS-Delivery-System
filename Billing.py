@@ -190,32 +190,36 @@ def bill_menu(customer_name):
         print()
         break
 
+import json
+
 def calculate_price(weight, zone):
-    prices = {
-        'A': {'below_1kg': 8.00, '1kg_to_3kg': 16.00},
-        'B': {'below_1kg': 9.00, '1kg_to_3kg': 18.00},
-        'C': {'below_1kg': 10.00, '1kg_to_3kg': 20.00},
-        'D': {'below_1kg': 11.00, '1kg_to_3kg': 22.00},
-        'E': {'below_1kg': 12.00, '1kg_to_3kg': 24.00}
-    }
-
+    # Load the price data from the JSON file
+    with open('parcel_price.json', 'r') as file:
+        parcel_price = json.load(file)
+    
     zone = zone.upper()  # Convert input to uppercase for case-insensitive comparison
-
+    
     if weight < 1:
-        price = prices.get(zone, {}).get('below_1kg')
+        price = parcel_price['UNDER1KG'].get(zone)
     elif 1 <= weight <= 3:
-        price = prices.get(zone, {}).get('1kg_to_3kg')
+        price = parcel_price['1KGTO3KG'].get(zone)
     else:
-        price = 0  # Add handling for weights above 3kg if needed
-
-    return price
+        price = parcel_price['OVER3KG'].get(zone)
+    
+    if price is None:
+        return None  # Handle the case where the price is not available
+    else:
+        return price
 
 def calculate_total_price(parcel_weights, parcel_zones):
     total_price = 0
     for weight, zone in zip(parcel_weights, parcel_zones):
         price = calculate_price(weight, zone)
-        total_price += price
-
+        if price is not None:
+            total_price += price
+        else:
+            # Handle the case where the price is not available
+            print(f"Price not available for weight {weight} and zone {zone}. Skipping calculation for this parcel.")
     return total_price
 
 def calculate_total_price_with_tax(total_price):
