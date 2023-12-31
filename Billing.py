@@ -341,9 +341,31 @@ def modify_consignment():
 
                 parcels[parcels.index(parcel_to_modify)] = new_parcel  # Update the parcel number
 
-                # Construct the updated parcels line with modified parcel details
-                updated_parcels_line = f"Parcels: {', '.join(parcels)}\n"
-                lines[parcels_line_index] = updated_parcels_line  # Update the line in the file
+                # Request for updated weight and destination
+                while True:
+                    try:
+                        weight = float(input(f"Enter the updated weight for parcel {new_parcel}: "))
+                        if weight <= 0:
+                            print("Weight should be a positive number.")
+                            print()
+                        else:
+                            break
+                    except ValueError:
+                        print("Invalid input! Please enter a valid weight.")
+                        print()
+
+                while True:
+                    zone = input(f"Enter the updated destination for parcel {new_parcel} (Zone A/B/C/D/E): ").upper()
+                    if zone not in ['A', 'B', 'C', 'D', 'E']:
+                        print("Invalid zone! Please enter Zone A, B, C, D, or E.")
+                        print()
+                    else:
+                        break
+
+                # Update the weight and destination information in the file
+                lines[parcels_line_index] = f"Parcels: {', '.join(parcels)}\n"  # Update parcels line
+                lines[parcels_line_index + 1] = f"Total price for Parcel {new_parcel}, Zone {zone} in Consignment {consignment_num} (incl. tax): RM {calculate_price(weight, zone):.2f}\n"  # Update total price line
+
                 print(f"Parcel {parcel_to_modify} in Consignment {consignment_num} altered successfully.")
                 print()
                 break
