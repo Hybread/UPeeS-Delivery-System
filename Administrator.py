@@ -161,99 +161,100 @@ def view_users(role_filter):
 add_user("AdminOP", "administrator", "apuadmin")
 
 # Interactive menu
-while True:
-    print("\n===== Parcel Delivery Service - Administrator Menu =====")
-    print("Administrator Verification Check. Please enter credentials.")
-    username = input("Enter username: ")
-    password = input("Enter password: ")
+def adminMenu():
+    while True:
+        print("\n===== Parcel Delivery Service - Administrator Menu =====")
+        print("Administrator Verification Check. Please enter credentials.")
+        username = input("Enter username: ")
+        password = input("Enter password: ")
 
-    if login(username, password):
-        print(f"User {username} logged in.")
-        print("1. Add User")
-        print("2. Assign Administrator Role")
-        print("3. Remove Administrator Role")
-        print("4. Delete User")
-        print("5. View Users")
-        print("6. Parcel Pricing Menu")
-        print("7. Back to First Menu")
+        if login(username, password):
+            print(f"User {username} logged in.")
+            print("1. Add User")
+            print("2. Assign Administrator Role")
+            print("3. Remove Administrator Role")
+            print("4. Delete User")
+            print("5. View Users")
+            print("6. Parcel Pricing Menu")
+            print("7. Back to First Menu")
 
-        choice = input("Enter your choice (1-7): ")
+            choice = input("Enter your choice (1-7): ")
 
-        if choice == "1":
-            new_username = input("Enter username to add: ")
-            role = input("Enter role (operator/administrator): ")
-            new_password = input("Enter password: ")
-            add_user(new_username, role, new_password)
+            if choice == "1":
+                new_username = input("Enter username to add: ")
+                role = input("Enter role (operator/administrator): ")
+                new_password = input("Enter password: ")
+                add_user(new_username, role, new_password)
 
-        elif choice == "2":
-            new_admin = input("Enter username to assign administrator role: ")
-            assign_admin_role(new_admin)
+            elif choice == "2":
+                new_admin = input("Enter username to assign administrator role: ")
+                assign_admin_role(new_admin)
 
-        elif choice == "3":
-            remove_admin = input("Enter username to remove administrator role: ")
-            remove_admin_role(remove_admin)
+            elif choice == "3":
+                remove_admin = input("Enter username to remove administrator role: ")
+                remove_admin_role(remove_admin)
 
-        elif choice == "4":
-            del_user = input("Enter username to delete: ")
-            delete_user(del_user)
+            elif choice == "4":
+                del_user = input("Enter username to delete: ")
+                delete_user(del_user)
 
-        elif choice == "5":
-            role_filter = input("Enter role filter (all/operator/administrator): ")
-            view_users(role_filter)
+            elif choice == "5":
+                role_filter = input("Enter role filter (all/operator/administrator): ")
+                view_users(role_filter)
 
-        elif choice == "6":
-            # option to proceed to the program
-            while True:
-                print("\nParcel Pricing Menu")
-                print("1. Add parcel price for above 3kg")
-                print("2. Modify parcel price for above 3kg")
-                print("3. Delete parcel price for above 3kg")
-                print("4. Check parcel price")
-                print("5. View all parcel")
-                print("6. Exit")
+            elif choice == "6":
+                # option to proceed to the program
+                while True:
+                    print("\nParcel Pricing Menu")
+                    print("1. Add parcel price for above 3kg")
+                    print("2. Modify parcel price for above 3kg")
+                    print("3. Delete parcel price for above 3kg")
+                    print("4. Check parcel price")
+                    print("5. View all parcel")
+                    print("6. Exit")
 
-                # User Input
-                option = input("Enter number of choices (1-6): ")
+                    # User Input
+                    option = input("Enter number of choices (1-6): ")
 
-                if option == '1':
-                    destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
-                    price = float(input("Enter price: RM"))
-                    add_price(destination, price)
-                    pass
+                    if option == '1':
+                        destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
+                        price = float(input("Enter price: RM"))
+                        add_price(destination, price)
+                        pass
 
-                elif option == '2':
-                    destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
-                    new_price = float(input("Enter new price: RM"))
-                    modify_price(destination, new_price)
-                    pass
+                    elif option == '2':
+                        destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
+                        new_price = float(input("Enter new price: RM"))
+                        modify_price(destination, new_price)
+                        pass
 
-                elif option == '3':
-                    destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
-                    delete_price(destination)
-                    pass
+                    elif option == '3':
+                        destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
+                        delete_price(destination)
+                        pass
 
-                elif option == '4':
-                    weight_category = input("Enter weight category (UNDER1KG,1KGTO3KG,OVER3KG): ").upper()
-                    destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
-                    check_price(weight_category, destination)
-                    pass
+                    elif option == '4':
+                        weight_category = input("Enter weight category (UNDER1KG,1KGTO3KG,OVER3KG): ").upper()
+                        destination = input("Enter Destination/Zone (A,B,C,D,E): ").upper()
+                        check_price(weight_category, destination)
+                        pass
 
-                elif option == '5':
-                    view_prices()
-                    pass
+                    elif option == '5':
+                        view_prices()
+                        pass
 
-                elif option == '6':
-                    break
+                    elif option == '6':
+                        break
 
-                else:
-                    print("The number entered is not in option. Please enter the right number.")
+                    else:
+                        print("The number entered is not in option. Please enter the right number.")
 
-        elif choice == "7":
-            print("Exiting the Parcel Delivery Service - Administrator Menu. Goodbye!")
-            break
+            elif choice == "7":
+                print("Exiting the Parcel Delivery Service - Administrator Menu. Goodbye!")
+                break
+
+            else:
+                print("Invalid choice. Please enter a number between 1 and 6.")
 
         else:
-            print("Invalid choice. Please enter a number between 1 and 6.")
-
-    else:
-        print("Invalid username or password. Access denied.")
+            print("Invalid username or password. Access denied.")

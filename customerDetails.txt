@@ -1,0 +1,29 @@
+0: {'name': 'Collin', 'address': 'PH', 'telephoneNumber': 123}
+Bill Date: 1/2/2222
+Consignment and Parcels:
+Consignment: HEHE
+Parcels: 0123
+Total price for Parcel 0123 in Consignment HEHE (incl. tax): RM 11.88
+
+Bill Date: 1/1/1234
+Consignment and Parcels:
+Consignment: HAHA
+Parcels: 12345
+
+1: {'name': 'Joseph', 'address': 'PH', 'telephoneNumber': 456}
+Bill Date: 12/05/2023
+Consignment and Parcels:
+Consignment: POP
+Parcels: 0101
+Total price for Parcel 0101 in Consignment POP (incl. tax): RM 9.72
+Consignment: EE
+Parcels: 01, 05
+Total price for Parcel 05 in Consignment EE (incl. tax): RM 19.44
+Total price for Parcel 01 in Consignment EE (incl. tax): RM 17.28
+
+2: {'name': 'Sutiono', 'address': 'FP', 'telephoneNumber': 789}
+Bill Date: 01/01/2024
+Consignment and Parcels:
+Consignment: LOL
+Parcels: 040, 020
+3: {'name': 'A', 'address': 'B', 'telephoneNumber': 3}

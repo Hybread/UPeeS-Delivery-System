@@ -8,15 +8,40 @@ def opening_menu():
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            from UserLogin import continue_login_process
-            continue_login_process()
+            login("operator", "12345")
+            handleOperator()
+            break
         elif choice == '2':
             print("Exiting the system. Goodbye!")
             break
         elif choice == 'admin':  # Hidden input to enter the admin menu
-            print("Admin access granted! Opening Admin Menu...")
-            import Administrator
+            handleAdmin()
+            break
         else:
             print("Invalid choice! Please select a valid option.")
-            
-opening_menu()
+
+def login(correctUser, correctPass): 
+    while True:
+        try:
+            username = input("Username: ")
+            password = input("Password: ")
+            if username == correctUser and password == correctPass:
+                break # If the username and password matches, break the loop and continue to the menu
+            else:
+                print("Incorrect username and/or password! Please try again.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+    print("Login success!")
+
+def handleOperator():
+    from Operator import operatorMenu
+    operatorMenu()
+
+def handleAdmin():
+    print("Admin access granted! Opening Admin Menu...")
+    from Administrator import adminMenu
+    adminMenu()
+
+# Main function
+if __name__ == "__main__":
+    opening_menu()
